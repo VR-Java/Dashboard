@@ -1,0 +1,104 @@
+
+QUESTIONS:
+login -> put correct login & password -> go to useritems -> push back button -> 
+-> (logically session should be invalidated) -> push Register -> instead of Register page I arrive to userItems...
+
+
+
+
+
+
+
+
+
+	JSP-files:
+/WEB-INF/views/users/Login.jsp   		 ---> start page
+/WEB-INF/views/users/UserProfile.jsp
+
+/WEB-INF/views/items/ItemProfile.jsp
+
+/WEB-INF/views/commons/Error.jsp
+/WEB-INF/views/commons/Confirm.jsp
+/WEB-INF/views/commons/UserItems.jsp
+	
+
+	*****
+>> start page  >>
+
+UserLoginServlet 		 <servlet-name> login
+Login.jsp
+						- "/login" = "/ + <servlet-name>"
+# mapping /, /login     - "/" is used if *.jsp-file is supposed to be "WELLCOME-PAGE"		
+
++ Button "Submit"		--> if OK 	-->  UserItemsServlet			-->  UserItems.jsp
++ Button "Submit" 		--> if ERR 	-->  UserLoginServlet  			-->  Login.jsp + message "some errors"
++ Button "Register" 	--> OK 		-->  UserProfileCreateServlet 	-->  UserProfile.jsp
+
+
+	*****
+>>  Login.jsp  >> Button "Register"  >> OK  >>  UserProfileCreateServlet  >>
+
+UserProfileCreateServlet	 <servlet-name> usercreate
+UserProfile.jsp
+
+# mapping /usercreate
+
+- Button "Submit"  	  -->  if OK   			 -->  UserItemsServlet 			-->  UserItems.jsp
+- Button "Submit"	  -->  if ERR 			 -->  UserProfileCreateServlet 	-->  UserProfile.jsp + message "some errors"
+- Button "Cancel"	  -->  is was logged 	 -->  UserItemsServlet 			-->  UserItems.jsp
+- Button "Cancel"	  -->  is was not logged -->  UserLoginServlet 			-->  Login.jsp
+
+
+  	*****
+>>  Login.jsp  	>> Button "Submit"  >> if OK  >>  UserItemsServlet  >>
+>>  UserProfile.jsp  >> Button "Register"  >> if OK  >>  UserItemsServlet  >>
+>>  UserProfile.jsp  >> Button "Cancel"  >> is was logged  >>  UserItemsServlet  >>
+>>  ItemProfile.jsp  >> Button "Save"  >> if OK  >>  UserItemsServlet  >>
+>>  ItemProfile.jsp  >> Button "Cancel"  >> OK  >>  UserItemsServlet  >>
+>>  UserItems.jsp  >> Button "DeleteItem"  >> if OK  >>  UserItemsServlet  >>
+
+UserItemsServlet	 <servlet-name> useritems
+UserItems.jsp
+
+# mapping /useritems
+
+- Button "Add"  	 -->  OK   	 -->  ItemProfileCreateServlet	-->  ItemProfile.jsp
+- Button "Sign Out"	 -->  OK	 -->  UserLogoutServlet		 	-->  Login.jsp
+- Button "User"	 	 -->  OK	 -->  UserProfileEditServlet	-->  UserProfile.jsp
+- Button "EditItem"	 -->  OK	 -->  ItemProfileEditServlet	-->  ItemProfile.jsp
+- Button "DeleteItem"-->  OK	 -->  UserItemsServlet			-->  UserItems.jsp
+//- Button "DeleteItem"-->  OK	 -->  JavaScript				-->  JavaScript
+
+
+	*****
+
+
+
+
+
+
+	*****
+	
+	
+	doGet() - NOT IMPORTANT DATA
+	doPost() - IMPORTANT DATA
+
+	***SERVLETS***				name @WebServlet("/name")
+	
++ UserLoginServlet				login
++ UserProfileCreateServlet		usercreate
++ UserProfileEditServlet		useredit
++ UserProfileCommitUpdate		usercommit
++ UserProfileCancelUpdate		usercancel
++ UserLogoutServlet				logout
+
++ ItemProfileCreateServlet		itemcreate
++ ItemProfileEditServlet		itemedit
++ ItemProfileDeleteServlet		itemdelete
++ ItemProfileCommitUpdate		itemcommit
++ ItemProfileCancelUpdate		itemcancel
+
++ UserItemsServlet				useritems
+
+
+
