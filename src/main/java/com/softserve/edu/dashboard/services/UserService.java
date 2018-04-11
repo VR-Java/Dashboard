@@ -40,7 +40,6 @@ public class UserService {
 					userDAO.create(userEntity);
 				} catch (SQLException e) {
 					e.printStackTrace();
-					// TODO handle Exception
 				}
 			}
 		} else {
@@ -49,7 +48,6 @@ public class UserService {
 				userDAO.update(userEntity);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				// TODO handle Exception
 			}
 		}
 	}
@@ -73,7 +71,6 @@ public class UserService {
 			userDAO.deleteById(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO handle Exception
 		}
 	}
 

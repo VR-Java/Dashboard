@@ -3,7 +3,8 @@ package com.softserve.edu.dashboard.tools;
 import javax.servlet.http.HttpServletRequest;
 
 import com.softserve.edu.dashboard.constants.FieldName;
-import com.softserve.edu.dashboard.constants.Messages;
+import com.softserve.edu.dashboard.constants.Message;
+import com.softserve.edu.dashboard.constants.WebPath;
 import com.softserve.edu.dashboard.dto.ItemDTO;
 import com.softserve.edu.dashboard.dto.UserDTO;
 
@@ -31,7 +32,7 @@ public class ItemUtils {
 		if (title != null && description != null && status != null) {
 			return new ItemDTO(idItem, title, description, userId, status);
 		} else {
-			request.setAttribute(FieldName.MESSAGE, Messages.NOT_FILLED);
+			request.setAttribute(FieldName.MESSAGE, Message.NOT_FILLED);
 			return null;
 		}
 	}
@@ -75,4 +76,19 @@ public class ItemUtils {
 			return null;
 		}
 	}
+	
+	public static void deleteItem(HttpServletRequest request) {
+		Long idItem = Long.parseLong(request.getParameter(FieldName.ID_ITEM));
+		Context.getInstance().getItemServise().deleteItemDTOById(idItem);
+	}
+	
+	public static void editItem(HttpServletRequest request) {
+		if (request.getParameter(FieldName.ID_ITEM) != null && !request.getParameter(FieldName.ID_ITEM).isEmpty()) {
+			Long idItem = Long.parseLong(request.getParameter(FieldName.ID_ITEM));
+			ItemDTO itemDTO = Context.getInstance().getItemServise().getItemDTO(idItem);
+			request.setAttribute(FieldName.ITEM_DTO, itemDTO);
+			request.getSession().setAttribute(FieldName.ID_ITEM, idItem);
+		}
+	}
+
 }

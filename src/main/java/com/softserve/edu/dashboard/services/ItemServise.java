@@ -26,7 +26,6 @@ public class ItemServise {
 					itemEntity.getUserId(), itemEntity.getStatus());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO handle Exception
 			return null;
 		}
 	}
@@ -39,14 +38,12 @@ public class ItemServise {
 				itemDAO.create(itemEntity);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				// TODO handle Exception
 			}
 		} else {
 			try {
 				itemDAO.update(itemEntity);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				// TODO handle Exception
 			}
 		}
 	}
@@ -56,7 +53,6 @@ public class ItemServise {
 		try {
 			itemDAO.findById(id);
 		} catch (SQLException e) {
-			// TODO handle Exception
 			e.printStackTrace();
 			result = false;
 		}
@@ -72,12 +68,10 @@ public class ItemServise {
 			if (isExistItem(id)) {
 				itemDAO.deleteById(id);
 			} else {
-				// TODO myException
 				throw new RuntimeException("Id doesn't exists!");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO handle Exception
 		}
 	}
 

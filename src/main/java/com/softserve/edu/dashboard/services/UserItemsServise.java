@@ -42,7 +42,6 @@ public class UserItemsServise {
 			return userItemsDTO;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO handle Exception
 			return null;
 		}
 	}

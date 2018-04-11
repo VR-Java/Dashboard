@@ -5,7 +5,6 @@ import java.util.List;
 
 public class UserItemsDTO {
 
-	// private String securityToken;
 	private String userLogin;
 	private List<ItemDTO> items;
 

@@ -39,7 +39,8 @@
 							<td>${item.description}</td>
 							<td>${item.status}</td>
 							<td><a href="${base}/itemedit?idItem=${item.idItem}">edit</a></td>
-							<td><a href="${base}/itemdelete?idItem=${item.idItem}">delete</a></td>
+							<td><a href="${base}/itemdelete?idItem=<c:out value="${item.idItem}"/>" 
+							onClick="return confirm('Do you want to delete your item?');">delete</a></td>
 						</tr>
 					</c:forEach>
 				</c:if>

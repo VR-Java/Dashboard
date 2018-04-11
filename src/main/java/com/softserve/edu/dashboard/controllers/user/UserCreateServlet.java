@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.softserve.edu.dashboard.constants.FieldName;
-import com.softserve.edu.dashboard.constants.WebPaths;
+import com.softserve.edu.dashboard.constants.WebPath;
 import com.softserve.edu.dashboard.dto.UserDTO;
 import com.softserve.edu.dashboard.tools.UserUtils;
 
-@WebServlet(WebPaths.USER_CREATE_SERVLET)
+@WebServlet(WebPath.USER_CREATE_SERVLET)
 public class UserCreateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -22,26 +22,24 @@ public class UserCreateServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doGet from UserProfileCreateServlet");
-		request.getRequestDispatcher(WebPaths.USER_PROFILE_JSP).forward(request, response);
+		request.getRequestDispatcher(WebPath.USER_PROFILE_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doPost from UserProfileCreateServlet");
 		UserDTO userDTO;
 		if (UserUtils.isActiveSession(request)) {
 			userDTO = UserUtils.updateUser(request);
-			System.out.println("user updated");
 		} else {
 			userDTO = UserUtils.createUser(request);
 		}
 		if (userDTO != null) {
 			UserUtils.createSession(request);
 			request.setAttribute(FieldName.USER_DTO, userDTO);
-			request.getRequestDispatcher(WebPaths.USER_ITEMS_SERVLET).forward(request, response);
+			response.sendRedirect(WebPath.BASE + WebPath.USER_ITEMS_SERVLET);
 		} else {
-			request.getRequestDispatcher(WebPaths.USER_PROFILE_JSP).forward(request, response);
+			doGet(request, response);
+//			request.getRequestDispatcher(WebPath.USER_PROFILE_JSP).forward(request, response);
 		}
 	}
 

@@ -11,7 +11,6 @@ public class SQLProperty {
 			 properties.load(SQLProperty.class.getClassLoader().getResourceAsStream("SQL.properties"));
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO MyException
 		}
 	}
 
@@ -19,7 +18,6 @@ public class SQLProperty {
 		if (properties.containsKey(name)) {
 			return properties.getProperty(name);
 		}
-		// TODO MyException
 		throw new RuntimeException("Key not found");
 	}
 }

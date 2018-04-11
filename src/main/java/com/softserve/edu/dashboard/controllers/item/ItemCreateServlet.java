@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.softserve.edu.dashboard.constants.FieldName;
-import com.softserve.edu.dashboard.constants.WebPaths;
+import com.softserve.edu.dashboard.constants.WebPath;
 import com.softserve.edu.dashboard.dto.ItemDTO;
 import com.softserve.edu.dashboard.tools.Context;
 import com.softserve.edu.dashboard.tools.ItemUtils;
 import com.softserve.edu.dashboard.tools.UserUtils;
 
-@WebServlet(WebPaths.ITEM_CREATE_SERVLET)
+@WebServlet(WebPath.ITEM_CREATE_SERVLET)
 public class ItemCreateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,35 +24,25 @@ public class ItemCreateServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doGet from ItemProfileCreateServlet");
 		if (UserUtils.isActiveSession(request)) {
-//			if(((ItemDTO)request.getSession().getAttribute(FieldName.ID_ITEM))==null) {
-//				response.sendRedirect(WebPaths.USER_ITEMS_SERVLET);
-//				return;
-//			}
-				request.getRequestDispatcher(WebPaths.ITEM_PROFILE_JSP).forward(request, response);
+				request.getRequestDispatcher(WebPath.ITEM_PROFILE_JSP).forward(request, response);
 		} else {
-			request.getRequestDispatcher(WebPaths.LOGIN_SERVLET).forward(request, response);
+			response.sendRedirect(WebPath.BASE + WebPath.LOGIN_SERVLET);
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doPost from ItemProfileCreateServlet");
 		if (UserUtils.isActiveSession(request)) {
 			ItemDTO itemDTO = ItemUtils.initItemDTO(request);
 			if (itemDTO != null) {
 				Context.getInstance().getItemServise().setItemDTO(itemDTO);
 				request.getSession().setAttribute(FieldName.ID_ITEM, null);
-				request.getRequestDispatcher(WebPaths.USER_ITEMS_SERVLET).forward(request, response);
-			} else {
-				request.getRequestDispatcher(WebPaths.ITEM_PROFILE_JSP).forward(request, response);
+				response.sendRedirect(WebPath.BASE + WebPath.USER_ITEMS_SERVLET);
 				return;
 			}
-		} else {
-			request.getRequestDispatcher(WebPaths.LOGIN_SERVLET).forward(request, response);
 		}
-
+		doGet(request, response);
 	}
 
 }

@@ -3,7 +3,7 @@ package com.softserve.edu.dashboard.tools;
 import javax.servlet.http.HttpServletRequest;
 
 import com.softserve.edu.dashboard.constants.FieldName;
-import com.softserve.edu.dashboard.constants.Messages;
+import com.softserve.edu.dashboard.constants.Message;
 import com.softserve.edu.dashboard.dto.UserDTO;
 
 public class UserUtils {
@@ -19,7 +19,6 @@ public class UserUtils {
 		} else {
 			request.getSession(true).setAttribute(FieldName.USER_DTO, userDTO);
 		}
-// System.out.println("Session created for user " + userDTO.getLogin());
 	}
 
 	public static boolean isLogged(HttpServletRequest request) {
@@ -30,14 +29,11 @@ public class UserUtils {
 				UserDTO userDTO = Context.getInstance().getUserService().getUserDTO(login);
 				request.setAttribute(FieldName.USER_DTO, userDTO);
 				return true;
-			} else {
-				request.setAttribute(FieldName.MESSAGE, Messages.INVALID_LOGN);
-				return false;
 			}
-		} else {
-			request.setAttribute(FieldName.MESSAGE, Messages.INVALID_LOGN);
-			return false;
 		}
+		request.setAttribute(FieldName.MESSAGE, Message.INVALID_LOGIN_OR_PASSWORD);
+		return false;
+		
 	}
 
 	protected static String getStringParameter(HttpServletRequest request, String parameter) {
@@ -60,7 +56,7 @@ public class UserUtils {
 						request.setAttribute(FieldName.USER_DTO, userDTO);
 						return userDTO;
 					} else {
-						request.setAttribute(FieldName.MESSAGE, Messages.LOGIN_UNAVAILABLE);
+						request.setAttribute(FieldName.MESSAGE, Message.LOGIN_UNAVAILABLE);
 					}
 				}
 			}
@@ -102,7 +98,7 @@ public class UserUtils {
 				&& email != null) {
 			return true;
 		} else {
-			request.setAttribute(FieldName.MESSAGE, Messages.NOT_FILLED);
+			request.setAttribute(FieldName.MESSAGE, Message.NOT_FILLED);
 			return false;
 		}
 	}
@@ -113,7 +109,7 @@ public class UserUtils {
 		if (password != null && confirmpassword != null && password.equals(confirmpassword)) {
 			return true;
 		} else {
-			request.setAttribute(FieldName.MESSAGE, Messages.PASSWORDS_NOT_MATCH);
+			request.setAttribute(FieldName.MESSAGE, Message.PASSWORDS_NOT_MATCH);
 			return false;
 		}
 	}

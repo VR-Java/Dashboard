@@ -18,7 +18,6 @@ public final class DataSourceRepository {
 		try {
 			sqlDriver = new com.mysql.jdbc.Driver();
 		} catch (SQLException e) {
-			// TODO Develop Custom Exceptions
 			throw new RuntimeException(FAILED_JDBC_DRIVER);
 		}
 		return new DataSource(sqlDriver,

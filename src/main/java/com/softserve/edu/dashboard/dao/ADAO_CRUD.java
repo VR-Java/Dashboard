@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.softserve.edu.dashboard.constants.FieldName;
 import com.softserve.edu.dashboard.db.ConnectionManager;
 import com.softserve.edu.dashboard.entity.AEntity;
 import com.softserve.edu.dashboard.tools.SQLProperty;
@@ -41,7 +42,6 @@ public abstract class ADAO_CRUD<TEntity extends AEntity> implements IDAO_CRUD<TE
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO myException
 		}
 	}
 
@@ -56,7 +56,6 @@ public abstract class ADAO_CRUD<TEntity extends AEntity> implements IDAO_CRUD<TE
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO myException
 		}
 		return entities;
 	}
@@ -72,17 +71,16 @@ public abstract class ADAO_CRUD<TEntity extends AEntity> implements IDAO_CRUD<TE
 			while (resultSet.next()) {
 				entities.add(createEntity(resultSet));
 			}
-			preparedStatement.execute();
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO myException
 		}
 		return entities;
 	}
 
 	@Override
 	public TEntity findById(Long id) throws SQLException {
-		return findByField("id", id).get(0);
+		return findByField(FieldName.ID, id).get(0);
 	}
 
 	@Override
@@ -94,10 +92,9 @@ public abstract class ADAO_CRUD<TEntity extends AEntity> implements IDAO_CRUD<TE
 			for (int i = 1; i <= entityParams.size(); i++) {
 				preparedStatement.setObject(i, entityParams.get(i - 1));
 			}
-			preparedStatement.execute();
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO myException
 		}
 	}
 
@@ -115,7 +112,6 @@ public abstract class ADAO_CRUD<TEntity extends AEntity> implements IDAO_CRUD<TE
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO myException
 		}
 	}
 
@@ -125,7 +121,6 @@ public abstract class ADAO_CRUD<TEntity extends AEntity> implements IDAO_CRUD<TE
 			statement.execute(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			// TODO myException
 		}
 	}
 

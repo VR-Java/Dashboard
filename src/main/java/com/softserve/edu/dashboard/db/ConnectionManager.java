@@ -99,7 +99,6 @@ public class ConnectionManager {
 		try {
 			getConnection().setAutoCommit(false);
 		} catch (SQLException e) {
-			// TODO Develop Custom Exceptions
 			throw new RuntimeException(FAILED_CONNECTION, e);
 		}
 	}
@@ -108,7 +107,6 @@ public class ConnectionManager {
 		try {
 			getConnection().commit();
 		} catch (SQLException e) {
-			// TODO Develop Custom Exceptions
 			throw new RuntimeException(FAILED_CONNECTION, e);
 		}
 	}
@@ -117,7 +115,6 @@ public class ConnectionManager {
 		try {
 			getConnection().rollback();
 		} catch (SQLException e) {
-			// TODO Develop Custom Exceptions
 			throw new RuntimeException(FAILED_CONNECTION, e);
 		}
 	}
