@@ -71,7 +71,7 @@ public abstract class ADAO_CRUD<TEntity extends AEntity> implements IDAO_CRUD<TE
 			while (resultSet.next()) {
 				entities.add(createEntity(resultSet));
 			}
-			preparedStatement.executeUpdate();
+			preparedStatement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -92,7 +92,7 @@ public abstract class ADAO_CRUD<TEntity extends AEntity> implements IDAO_CRUD<TE
 			for (int i = 1; i <= entityParams.size(); i++) {
 				preparedStatement.setObject(i, entityParams.get(i - 1));
 			}
-			preparedStatement.executeUpdate();
+			preparedStatement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

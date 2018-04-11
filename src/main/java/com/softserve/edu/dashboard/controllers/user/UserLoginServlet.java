@@ -37,7 +37,8 @@ public class UserLoginServlet extends HttpServlet {
 			UserUtils.createSession(request);
 			response.sendRedirect(WebPath.BASE + WebPath.USER_ITEMS_SERVLET);
 		} else {
-			response.sendRedirect(WebPath.BASE + WebPath.LOGIN_SERVLET);
+			doGet(request, response);
+//			response.sendRedirect(WebPath.BASE + WebPath.LOGIN_SERVLET);
 		}
 	}
 
